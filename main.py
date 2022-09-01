@@ -5,15 +5,21 @@ from aiogram.types import ReplyKeyboardRemove, ReplyKeyboardMarkup, KeyboardButt
 from aiogram.dispatcher import FSMContext                            
 from aiogram.dispatcher.filters import Command                        
 from aiogram.contrib.fsm_storage.memory import MemoryStorage        
-from aiogram.dispatcher.filters.state import StatesGroup, State        
-import config
+from aiogram.dispatcher.filters.state import StatesGroup, State    
+from sys import platform    
 import keyboard
 import logging
 import api
 import datetime
 
+
+if platform == 'win32':
+    botkey = '5169913410:AAEEQFVUrQ_7zsKHldHSrvF3mxiyT6eQLn4'
+else:
+    botkey = '5316545431:AAG-D5CU3Vu1P485UX7LvZOg1_D3PkZdpSE'
+    
 storage = MemoryStorage() # FOR FSM
-bot = Bot(token=config.botkey, parse_mode=types.ParseMode.HTML)
+bot = Bot(token=botkey, parse_mode=types.ParseMode.HTML)
 dp = Dispatcher(bot, storage=storage)
 logging.basicConfig(format=u'%(filename)s [LINE:%(lineno)d] #%(levelname)-8s [%(asctime)s]  %(message)s',level=logging.INFO,)
 
@@ -84,11 +90,12 @@ async def domain(message: types.Message, state: FSMContext):
 
 @dp.message_handler(content_types=['text'])
 async def get_message(message):
+    sec = await bot.send_message(message.chat.id, '**Секунду...**', parse_mode='Markdown')
     match message.text:
         case "хто я":
             dictionary = api.idProfile(message.chat.id)
             result = cleanup(dictionary)
-            await bot.send_message(message.chat.id,text=result, parse_mode='Markdown', reply_markup=keyboard.start)
+            await bot.edit_message_text(text=result, chat_id=message.chat.id, message_id=sec.message_id, parse_mode='Markdown')
         case 'предметы завтра':
             if datetime.datetime.today().weekday() == 6:
                 dictionary = api.idJournal(message.chat.id, 1)
@@ -106,7 +113,7 @@ async def get_message(message):
             else:
                 lessones = cleanup(dictionary[tommorowDay]['lessons'])
             render = f'Завтра *{tommorowDay}, {dt_string}*\n{lessones}'                
-            await bot.send_message(message.chat.id,text=render, parse_mode='Markdown', reply_markup=keyboard.start)
+            await bot.edit_message_text(text=render, chat_id=message.chat.id, message_id=sec.message_id, parse_mode='Markdown')
         case 'Список челов':
             await bot.send_message(message.chat.id, text = "Выберете категорию", reply_markup=keyboard.chels, parse_mode='Markdown')
             
