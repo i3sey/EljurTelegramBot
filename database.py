@@ -1,15 +1,17 @@
 import os
 from pymongo import MongoClient
 
+
 class DiaryDB(object):
-    
-    client = MongoClient('mongodb+srv://sa05:viokU2R3MMskBT7R@diary.tqplmjm.mongodb.net/?retryWrites=true&w=majority')
-    
+
+    client = MongoClient(
+        'mongodb+srv://sa05:viokU2R3MMskBT7R@diary.tqplmjm.mongodb.net/?retryWrites=true&w=majority')
+
     dbm = client.tempUsers
     collection = dbm.AIO
     posts = dbm.posts
 
-    def __init__(self , location):
+    def __init__(self, location):
         self.location = os.path.expanduser(location)
         self.load()
 
@@ -28,7 +30,7 @@ class DiaryDB(object):
         except:
             return False
 
-    def set(self , key , value):
+    def set(self, key, value):
         try:
             self.db[str(key)] = value
             self.dumpdb()
@@ -36,28 +38,28 @@ class DiaryDB(object):
             print("[X] Error Saving Values to Database : " + str(e))
             return False
 
-    def sets(self , key , value):
+    def sets(self, key, value):
         try:
             self.db[str(key)] = value
         except Exception as e:
             print("[X] Error Saving Values to Database : " + str(e))
             return False
-        
-    def get(self , key):
+
+    def get(self, key):
         try:
             return self.db[key]
         except KeyError:
             # print("No Value Can Be Found for " + str(key))
             return False
 
-    def delete(self , key):
+    def delete(self, key):
         if not key in self.db:
             return False
         del self.db[key]
         self.dumpdb()
         return True
-    
+
     def resetdb(self):
-        self.db={}
+        self.db = {}
         self.dumpdb()
         return True
