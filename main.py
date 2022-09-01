@@ -90,13 +90,14 @@ async def domain(message: types.Message, state: FSMContext):
 
 @dp.message_handler(content_types=['text'])
 async def get_message(message):
-    sec = await bot.send_message(message.chat.id, '**Секунду...**', parse_mode='Markdown')
     match message.text:
         case "хто я":
+            sec = await bot.send_message(message.chat.id, '**Секунду...**', parse_mode='Markdown')
             dictionary = api.idProfile(message.chat.id)
             result = cleanup(dictionary)
             await bot.edit_message_text(text=result, chat_id=message.chat.id, message_id=sec.message_id, parse_mode='Markdown')
         case 'предметы завтра':
+            sec = await bot.send_message(message.chat.id, '**Секунду...**', parse_mode='Markdown')
             if datetime.datetime.today().weekday() == 6:
                 dictionary = api.idJournal(message.chat.id, 1)
             else:
