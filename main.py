@@ -97,13 +97,14 @@ async def get_message(message):
             result = cleanup(dictionary)
             await bot.edit_message_text(text=result, chat_id=message.chat.id, message_id=sec.message_id, parse_mode='Markdown')
         case 'предметы завтра':
+            tz = datetime.timezone(datetime.timedelta(hours=5))
             sec = await bot.send_message(message.chat.id, '**Секунду...**', parse_mode='Markdown')
-            if datetime.datetime.today().weekday() == 6:
+            if datetime.datetime.now(tz).weekday() == 6:
                 dictionary = api.idJournal(message.chat.id, 1)
             else:
                 dictionary = api.idJournal(message.chat.id, 0)
             #render
-            dt = datetime.date.today() + datetime.timedelta(days=1)
+            dt = datetime.datetime.now(tz) + datetime.timedelta(days=1)
             d = dt.strftime("%d")
             dt_string = dt.strftime(f"{d}.%m")
             for key, val in dictionary.items():
@@ -115,6 +116,7 @@ async def get_message(message):
                 lessones = cleanup(dictionary[tommorowDay]['lessons'])
             render = f'Завтра *{tommorowDay}, {dt_string}*\n{lessones}'                
             await bot.edit_message_text(text=render, chat_id=message.chat.id, message_id=sec.message_id, parse_mode='Markdown')
+            print(datetime.datetime.now(tz).strftime("%H:%M"))
         case 'Список челов':
             await bot.send_message(message.chat.id, text = "Выберете категорию", reply_markup=keyboard.chels, parse_mode='Markdown')
             
