@@ -28,8 +28,8 @@ def newUser(idc, login, password, domain) -> 1 or dict:
         # print(answer)
         return answer
     
-    db.set(f'{idc}_login', login)
-    db.set(f'{idc}_password', password)
+    db.sets(f'{idc}_login', login)
+    db.sets(f'{idc}_password', password)
     db.set(f'{idc}_domain', domain)
     return 0
     

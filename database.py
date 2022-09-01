@@ -1,25 +1,29 @@
-import json
 import os
-
+from pymongo import MongoClient
 
 class DiaryDB(object):
+    
+    client = MongoClient('mongodb+srv://sa05:viokU2R3MMskBT7R@diary.tqplmjm.mongodb.net/?retryWrites=true&w=majority')
+    
+    dbm = client.tempUsers
+    collection = dbm.AIO
+    posts = dbm.posts
+
     def __init__(self , location):
         self.location = os.path.expanduser(location)
-        self.load(self.location)
+        self.load()
 
-    def load(self , location):
-       if os.path.exists(location):
-           self._load()
-       else:
+    def load(self):
+        t = self.posts.find_one()
+        if t == None:
             self.db = {}
-       return True
-
-    def _load(self):
-        self.db = json.load(open(self.location , "r"))
+        else:
+            self.db = t
+        return True
 
     def dumpdb(self):
         try:
-            json.dump(self.db , open(self.location, "w+"))
+            post_id = self.posts.insert_one(self.db).inserted_id
             return True
         except:
             return False
@@ -32,6 +36,13 @@ class DiaryDB(object):
             print("[X] Error Saving Values to Database : " + str(e))
             return False
 
+    def sets(self , key , value):
+        try:
+            self.db[str(key)] = value
+        except Exception as e:
+            print("[X] Error Saving Values to Database : " + str(e))
+            return False
+        
     def get(self , key):
         try:
             return self.db[key]
