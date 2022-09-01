@@ -116,7 +116,6 @@ async def get_message(message):
                 lessones = cleanup(dictionary[tommorowDay]['lessons'])
             render = f'Завтра *{tommorowDay}, {dt_string}*\n{lessones}'                
             await bot.edit_message_text(text=render, chat_id=message.chat.id, message_id=sec.message_id, parse_mode='Markdown')
-            print(datetime.datetime.now(tz).strftime("%H:%M"))
         case 'Список челов':
             await bot.send_message(message.chat.id, text = "Выберете категорию", reply_markup=keyboard.chels, parse_mode='Markdown')
             
