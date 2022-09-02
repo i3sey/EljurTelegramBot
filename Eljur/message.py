@@ -31,7 +31,7 @@ class Message:
 
             pattern["1"] = typePattern[typeOf[0]]
 
-            url = f"https://{subdomain}.eljur.ru/journal-messages-ajax-action?method=getRecipientList"
+            url = f"https://{subdomain}.eljur.ru/journal-messages-ajax-action?method=messages.get_recipient_list"
             getPattern = session.post(url=url, data=pattern)
 
             checkStatus = _checkStatus(getPattern, url)
