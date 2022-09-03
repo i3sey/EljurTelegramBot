@@ -1,5 +1,6 @@
 import datetime
 import logging
+import os
 from sys import platform
 
 from aiogram import Bot, types
@@ -14,9 +15,10 @@ import api
 import keyboard
 
 if platform == 'win32':
-    BOTKEY = '5169913410:AAEEQFVUrQ_7zsKHldHSrvF3mxiyT6eQLn4'
+    from config import TESTTOKEN
+    BOTKEY = TESTTOKEN
 else:
-    BOTKEY = '5316545431:AAG-D5CU3Vu1P485UX7LvZOg1_D3PkZdpSE'
+    BOTKEY = os.environ['STDTOKEN']
 
 storage = MemoryStorage()  # FOR FSM
 bot = Bot(token=BOTKEY, parse_mode=types.ParseMode.HTML)
