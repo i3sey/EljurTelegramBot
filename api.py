@@ -208,4 +208,4 @@ if __name__ == '__main__':
     # print(idGet(getID())) # воркает
     # print(idReport(getID()))
     # print(idFinal(getID()))
-    print(idSchoolList(getID()))
+    # print(idSchoolList(getID()))
