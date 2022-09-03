@@ -129,3 +129,4 @@ dmypy.json
 
 database.db
 .vscode/settings.json
+config.py

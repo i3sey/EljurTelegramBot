@@ -1,11 +1,18 @@
 import os
+
 from pymongo import MongoClient
+
+try:
+    from config import MONGOTOKEN
+except Exception:
+    token = os.environ['MONGOTOKEN']
+else:
+    token = MONGOTOKEN
 
 
 class DiaryDB(object):
-
-    client = MongoClient(
-        'mongodb+srv://sa05:viokU2R3MMskBT7R@diary.tqplmjm.mongodb.net/?retryWrites=true&w=majority')
+    
+    client = MongoClient(token)
 
     dbm = client.tempUsers
     collection = dbm.AIO
