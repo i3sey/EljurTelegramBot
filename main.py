@@ -35,9 +35,7 @@ class UserInfo(StatesGroup):
 
 
 def cleanup(dictionary):
-    result = '\n'.join(
-        [f'{key.capitalize()}: {value}' for key, value in dictionary.items()])
-    return result
+    return '\n'.join([f'{key.capitalize()}: {value}' for key, value in dictionary.items()])
 
 
 @dp.message_handler(Command("update"), state=None)
@@ -50,11 +48,8 @@ async def update(message: types.Message):
 @dp.message_handler(Command("start"), state=None)
 async def start(message: types.Message):
     joined_file = open("user.txt", "r", encoding='utf-8')
-    joined_users = set()
-    for line in joined_file:
-        joined_users.add(line.strip())
-
-    if not str(message.chat.id) in joined_users:
+    joined_users = {line.strip() for line in joined_file}
+    if str(message.chat.id) not in joined_users:
         joined_file = open("user.txt", "a", encoding='utf-8')
         joined_file.write(str(message.chat.id) + "\n")
         joined_users.add(message.chat.id)

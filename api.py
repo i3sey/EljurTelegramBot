@@ -52,9 +52,7 @@ def idProfile(idc) -> dict or 1:
         return 1
 
     profile = Profile()
-    # В ответ возвращает информацию о профиле пользователя.
-    answ = profile.getProfile(subdomain, answer["session"])
-    return answ
+    return profile.getProfile(subdomain, answer["session"])
 
 
 def idJournal(idc, week) -> dict or 1:
@@ -72,9 +70,7 @@ def idJournal(idc, week) -> dict or 1:
         return 1
 
     journal = Journal()
-    # В ответ получает нынешнюю неделю или ошибку.
-    answ = journal.journal(subdomain, answer["session"], week)
-    return answ
+    return journal.journal(subdomain, answer["session"], week)
 
 
 def idSchoolList(idc) -> list or 1:
@@ -92,8 +88,7 @@ def idSchoolList(idc) -> list or 1:
         return 1
 
     SchoolList = Message()
-    answ = SchoolList.schoolList(subdomain, answer["session"])
-    return answ
+    return SchoolList.schoolList(subdomain, answer["session"])
 
 
 def peopleList(category) -> dict or 1:
@@ -107,11 +102,8 @@ def peopleList(category) -> dict or 1:
     Returns:
         [dict]: ФИО:id
     """
-    listd = {}
     lists = idSchoolList(getID())[0][category]['user_list']
-    for i in lists:
-        listd[f"{i['firstname']} {i['lastname']} {i['middlename']}"] = i['id']
-    return listd
+    return {f"{i['firstname']} {i['lastname']} {i['middlename']}": i['id'] for i in lists}
 
 
 def idSend(idc, idp, message, name) -> bool or dict:
@@ -134,8 +126,7 @@ def idSend(idc, idp, message, name) -> bool or dict:
         'message':   str(message)
     }
     send = Message()
-    answ = send.sendMessage(subdomain, answer["session"], args)
-    return answ
+    return send.sendMessage(subdomain, answer["session"], args)
 
 
 def idGet(idc) -> dict:
@@ -153,9 +144,7 @@ def idGet(idc) -> dict:
         return 1
 
     message = Message()
-    # получает полученные сообщения.
-    answ = message.getMessages(subdomain, answer["session"], {})
-    return answ
+    return message.getMessages(subdomain, answer["session"], {})
 
 
 def idReport(idc) -> dict:
@@ -173,10 +162,7 @@ def idReport(idc) -> dict:
         return 1
 
     portfolio = Portfolio()
-    # В ответ получает оценки ученика или ошибку.
-    answ = portfolio.reportCard(
-        subdomain, answer["session"], answer["answer"]["user"]["uid"])
-    return answ
+    return portfolio.reportCard(subdomain, answer["session"], answer["answer"]["user"]["uid"])
 
 
 def idFinal(idc, year) -> dict:
@@ -194,9 +180,7 @@ def idFinal(idc, year) -> dict:
         return 1
 
     portfolio = Portfolio()
-    answ = portfolio.finalGrades(
-        subdomain, answer["session"], answer["answer"]["user"]["uid"], year)
-    return answ
+    return portfolio.finalGrades(subdomain, answer["session"], answer["answer"]["user"]["uid"], year)
 
 
 if __name__ == '__main__':
@@ -208,4 +192,4 @@ if __name__ == '__main__':
     # print(idGet(getID())) # воркает
     # print(idReport(getID()))
     # print(idFinal(getID()))
-    # print(idSchoolList(getID()))
+    print(idSchoolList(getID()))

@@ -24,17 +24,14 @@ class DiaryDB(object):
 
     def load(self):
         t = self.posts.find_one()
-        if t == None:
-            self.db = {}
-        else:
-            self.db = t
+        self.db = {} if t is None else t
         return True
 
     def dumpdb(self):
         try:
             post_id = self.posts.insert_one(self.db).inserted_id
             return True
-        except:
+        except Exception:
             return False
 
     def set(self, key, value):
@@ -42,14 +39,14 @@ class DiaryDB(object):
             self.db[str(key)] = value
             self.dumpdb()
         except Exception as e:
-            print("[X] Error Saving Values to Database : " + str(e))
+            print(f"[X] Error Saving Values to Database : {str(e)}")
             return False
 
     def sets(self, key, value):
         try:
             self.db[str(key)] = value
         except Exception as e:
-            print("[X] Error Saving Values to Database : " + str(e))
+            print(f"[X] Error Saving Values to Database : {str(e)}")
             return False
 
     def get(self, key):
@@ -60,7 +57,7 @@ class DiaryDB(object):
             return False
 
     def delete(self, key):
-        if not key in self.db:
+        if key not in self.db:
             return False
         del self.db[key]
         self.dumpdb()
