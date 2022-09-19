@@ -10,15 +10,19 @@ from aiogram.dispatcher.filters import Command
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from aiogram.utils import executor
+from dotenv import load_dotenv
 
 import api
 import keyboard
 
-if platform == 'win32':
-    from config import TESTTOKEN
-    BOTKEY = TESTTOKEN
-else:
-    BOTKEY = os.environ['STDTOKEN']
+# if platform == 'win32':
+#     from config import TESTTOKEN
+#     BOTKEY = TESTTOKEN
+# else:
+#     BOTKEY = os.environ['TOKEN']
+load_dotenv()
+
+BOTKEY = os.environ['TOKEN']
 
 storage = MemoryStorage()  # FOR FSM
 bot = Bot(token=BOTKEY, parse_mode=types.ParseMode.HTML)
@@ -37,6 +41,8 @@ class UserInfo(StatesGroup):
 def cleanup(dictionary):
     return '\n'.join([f'{key.capitalize()}: {value}' for key, value in dictionary.items()])
 
+def dailyCleanup(dictionary):
+    return '\n'.join([f'{key.capitalize()}: {value["name"]}' for key, value in dictionary.items()])
 
 @dp.message_handler(Command("update"), state=None)
 async def update(message: types.Message):
@@ -114,7 +120,8 @@ async def get_message(message):
         case 'предметы завтра':
             time_zone = datetime.timezone(datetime.timedelta(hours=5))
             sec = await bot.send_message(message.chat.id, '**Секунду...**', parse_mode='Markdown')
-            date = datetime.datetime.now(time_zone) + datetime.timedelta(days=1)
+            # date = datetime.datetime.now(time_zone) + datetime.timedelta(days=1)
+            date = datetime.datetime.now(time_zone) #DEBUGGGG TODO
             if date.weekday() == 5:
                 date += datetime.timedelta(days=2)
             elif date.weekday() == 6:
@@ -132,7 +139,7 @@ async def get_message(message):
             if dictionary[tommorow_day]['isEmpty'] is True:
                 lessones = 'Уроков нет, отдыхаем'
             else:
-                lessones = cleanup(dictionary[tommorow_day]['lessons'])
+                lessones = dailyCleanup(dictionary[tommorow_day]['lessons'])
             render = f'Завтра *{tommorow_day}, {date_str}*\n{lessones}'
             await bot.edit_message_text(text=render,
                                         chat_id=message.chat.id,
