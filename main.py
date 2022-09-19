@@ -1,7 +1,6 @@
 import datetime
 import logging
 import os
-from sys import platform
 
 from aiogram import Bot, types
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
@@ -15,11 +14,7 @@ from dotenv import load_dotenv
 import api
 import keyboard
 
-# if platform == 'win32':
-#     from config import TESTTOKEN
-#     BOTKEY = TESTTOKEN
-# else:
-#     BOTKEY = os.environ['TOKEN']
+
 load_dotenv()
 
 BOTKEY = os.environ['TOKEN']

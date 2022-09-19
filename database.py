@@ -1,13 +1,10 @@
 import os
 
+from dotenv import load_dotenv
 from pymongo import MongoClient
 
-try:
-    from config import MONGOTOKEN
-except Exception:
-    token = os.environ['MONGOTOKEN']
-else:
-    token = MONGOTOKEN
+load_dotenv()
+token = os.environ['MONGOTOKEN']
 
 
 class DiaryDB(object):
