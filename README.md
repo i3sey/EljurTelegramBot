@@ -1,2 +1,1 @@
-# EljurTelegramBot
-Eljur bot in telegram
+# AiogramTemplate

@@ -1,0 +1,65 @@
+import os
+
+from dotenv import load_dotenv
+from pymongo import MongoClient
+
+load_dotenv()
+token = os.environ['MONGOTOKEN']
+
+class DiaryDB(object):
+    
+    client = MongoClient(token)
+
+    dbm = client.tempUsers
+    collection = dbm.AIO
+    posts = dbm.posts
+
+    def __init__(self, location):
+        self.location = os.path.expanduser(location)
+        self.load()
+
+    def load(self):
+        t = self.posts.find_one()
+        self.db = {} if t is None else t
+        return True
+
+    def dumpdb(self):
+        try:
+            post_id = self.posts.insert_one(self.db).inserted_id
+            return True
+        except Exception:
+            return False
+
+    def set(self, key, value):
+        try:
+            self.db[str(key)] = value
+            self.dumpdb()
+        except Exception as e:
+            print(f"[X] Error Saving Values to Database : {str(e)}")
+            return False
+
+    def sets(self, key, value):
+        try:
+            self.db[str(key)] = value
+        except Exception as e:
+            print(f"[X] Error Saving Values to Database : {str(e)}")
+            return False
+
+    def get(self, key):
+        try:
+            return self.db[key]
+        except KeyError:
+            # print("No Value Can Be Found for " + str(key))
+            return False
+
+    def delete(self, key):
+        if key not in self.db:
+            return False
+        del self.db[key]
+        self.dumpdb()
+        return True
+
+    def resetdb(self):
+        self.db = {}
+        self.dumpdb()
+        return True
