@@ -115,14 +115,16 @@ async def get_message(message):
         case 'предметы завтра':
             time_zone = datetime.timezone(datetime.timedelta(hours=5))
             sec = await bot.send_message(message.chat.id, '**Секунду...**', parse_mode='Markdown')
-            # date = datetime.datetime.now(time_zone) + datetime.timedelta(days=1)
-            date = datetime.datetime.now(time_zone) #DEBUGGGG TODO
+            date = datetime.datetime.now(time_zone) + datetime.timedelta(days=1)
+            # date = datetime.datetime.now(time_zone) #DEBUGGGG TODO
             if date.weekday() == 5:
                 date += datetime.timedelta(days=2)
             elif date.weekday() == 6:
                 date += datetime.timedelta(days=1)
+            elif date.weekday() == 4:
+                date += datetime.timedelta(days=3)
             today_week = datetime.datetime.now(time_zone).weekday()
-            if today_week == 6 or today_week == 5:
+            if today_week == 6 or today_week == 5 or today_week == 4:
                 dictionary = api.idJournal(message.chat.id, 1)
             else:
                 dictionary = api.idJournal(message.chat.id, 0)
