@@ -1,0 +1,17 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+python-dotenv = "*"
+aiogram = "*"
+pymongo = {extras = ["srv"], version = "*"}
+bs4 = "*"
+lxml = "*"
+requests = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.10"
