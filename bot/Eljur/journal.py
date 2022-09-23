@@ -44,6 +44,8 @@ class Journal:
             if lessons:
                 for lesson in lessons:
                     lessonNumber = lesson.find("div", class_="dnevnik-lesson__number dnevnik-lesson__number--time")
+                    if lessonNumber == None:
+                        continue
                     if lessonNumber:
                         lessonNumber = lessonNumber.contents[0].replace("\n", "").strip()[:-1]
 
