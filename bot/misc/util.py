@@ -9,12 +9,12 @@ def dailyCleanup(dictionary):
 
 async def lessones(msg):
     time_zone = datetime.timezone(datetime.timedelta(hours=5))
-    date = datetime.datetime.now(time_zone) + datetime.timedelta(days=1)
+    date = datetime.datetime.now(time_zone)
     if date.weekday() == 4:
         date += datetime.timedelta(days=3)
     if date.weekday() == 5:
         date += datetime.timedelta(days=2)
-    elif date.weekday() == 6:
+    else:
         date += datetime.timedelta(days=1)
     today_week = datetime.datetime.now(time_zone).weekday()
     dictionary = idJournal(msg.chat.id, 1) if today_week in [6, 5, 4] else idJournal(msg.chat.id, 0)
