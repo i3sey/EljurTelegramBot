@@ -60,5 +60,5 @@ class DiaryDB(object):
         return True
 
     def resetdb(self):
-        self.collection.drop()
+        self.dbm.drop_collection(self.collection)
         return True

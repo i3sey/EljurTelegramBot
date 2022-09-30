@@ -24,10 +24,10 @@ async def lessones(msg):
         if val['date'] == date_str:
             tommorow_day = key
     if dictionary[tommorow_day]['isEmpty'] is True:
-        lessones = 'Уроков нет, отдыхаем'
+        lessone = 'Уроков нет, отдыхаем'
     else:
-        lessones = dailyCleanup(dictionary[tommorow_day]['lessons'])
-    return f'Завтра <b>{tommorow_day}, {date_str}</b>\n{lessones}'
+        lessone = dailyCleanup(dictionary[tommorow_day]['lessons'])
+    return f'Завтра <b>{tommorow_day}, {date_str}</b>\n{lessone}'
 
 async def info(msg):
     asa = idProfile(msg.chat.id)

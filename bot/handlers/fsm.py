@@ -2,7 +2,7 @@ from aiogram.fsm.context import FSMContext
 from aiogram import Router
 from bot.handlers.user import UserInfo
 from aiogram.types import Message
-from bot.api import *
+from bot.api import newUser, idProfile
 from bot.keyboards import inline
 
 router = Router()

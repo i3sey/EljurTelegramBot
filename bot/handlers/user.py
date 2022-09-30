@@ -1,15 +1,12 @@
-import datetime
 from email.message import Message
 
-from aiogram import Dispatcher, types
-from aiogram.filters import Command
+from aiogram import Router, types
 from aiogram.filters.state import State, StatesGroup
+from aiogram.fsm.context import FSMContext
 from bot.database import main
 from bot.keyboards import inline
-from bot.misc.util import lessones
-from bot.misc.util import info
-from aiogram import Router
-from aiogram.fsm.context import FSMContext
+from bot.misc.util import info, lessones
+
 
 class UserInfo(StatesGroup):
     QL = State()
