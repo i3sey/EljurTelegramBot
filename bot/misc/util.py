@@ -12,7 +12,7 @@ async def lessones(msg):
     date = datetime.datetime.now(time_zone)
     if date.weekday() == 4:
         date += datetime.timedelta(days=3)
-    if date.weekday() == 5:
+    elif date.weekday() == 5:
         date += datetime.timedelta(days=2)
     else:
         date += datetime.timedelta(days=1)
