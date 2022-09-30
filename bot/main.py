@@ -1,21 +1,15 @@
 import logging
-from aiogram.utils import executor
 from aiogram import Bot, Dispatcher
-from aiogram.contrib.fsm_storage.memory import MemoryStorage
-
+from bot.handlers import user, fsm
 from bot.filters import register_all_filters
 from bot.misc import TgKeys
-from bot.handlers import register_all_handlers
 from bot.database.models import register_models
 
-async def __on_start_up(dp: Dispatcher) -> None:
-    register_all_filters(dp)
-    register_all_handlers(dp)
-    register_models()
-
-def start_bot():
+async def start_bot():
     bot = Bot(token=TgKeys.TOKEN, parse_mode='HTML')
-    dp = Dispatcher(bot, storage=MemoryStorage())
+    dp = Dispatcher() # , storage=MemoryStorage()
+    dp.include_router(user.router)
+    dp.include_router(fsm.router)
     logging.basicConfig(
     format='%(filename)s [LINE:%(lineno)d] #%(levelname)-8s [%(asctime)s]  %(message)s', level=logging.INFO)
-    executor.start_polling(dp, skip_updates=True, on_startup=__on_start_up)
+    await dp.start_polling(bot, allowed_updates=dp.resolve_used_update_types())

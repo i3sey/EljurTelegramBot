@@ -1,5 +1,5 @@
 from aiogram import Dispatcher
-from aiogram.dispatcher import FSMContext
+from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
 from bot.handlers.user.main import UserInfo
 from bot.api import *
@@ -40,10 +40,3 @@ async def finishRegistration(message, state):
     else:
         await message.answer(f"ПРИВЕТ, *{idProfile(message.chat.id)['Имя']},* БОТ РАБОТАЕТ",reply_markup=inline.start)
         await state.finish()
-
-def register_other_handlers(dp: Dispatcher) -> None:
-    # todo: register all other handlers
-    # dp.register_message_handler(echo, content_types=['text'])
-    dp.register_message_handler(login, state=UserInfo.QL)
-    dp.register_message_handler(password, state=UserInfo.QP)
-    dp.register_message_handler(domain, state=UserInfo.QD)

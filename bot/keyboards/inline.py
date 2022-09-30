@@ -1,7 +1,7 @@
 from aiogram import types
-start = types.ReplyKeyboardMarkup(resize_keyboard=True) # СОЗДАЕМ ВООБЩЕ ОСНОВУ ДЛЯ КНОПОК
-
-profile = types.KeyboardButton("хто я")            # ДОБАВЛЯЕМ КНОПКУ ИНФОРМАЦИИ
-marks = types.KeyboardButton("предметы завтра")            # ДОБАВЛЯЕМ КНОПКУ СТАТИСТИКИ
-peoples = types.KeyboardButton('Список челов')
-start.add(marks, profile)
+kb = [[types.KeyboardButton(text="хто я"), types.KeyboardButton(text="предметы завтра")]]
+start = types.ReplyKeyboardMarkup(
+        keyboard=kb,
+        resize_keyboard=True,
+        input_field_placeholder="Выберите Действие: "
+    )
