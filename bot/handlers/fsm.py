@@ -3,7 +3,7 @@ from aiogram import Router
 from bot.handlers.user import UserInfo
 from aiogram.types import Message
 from bot.api import newUser, idProfile
-from bot.keyboards import inline
+from bot.keyboards import reply
 
 router = Router()
 
@@ -35,5 +35,5 @@ async def finishRegistration(message, state):
         await message.answer('Привет, гони логин')
         await state.set_state(UserInfo.QL)
     else:
-        await message.answer(f"ПРИВЕТ, *{idProfile(message.chat.id)['Имя']},* БОТ РАБОТАЕТ",reply_markup=inline.start)
+        await message.answer(f"ПРИВЕТ, *{idProfile(message.chat.id)['Имя']},* БОТ РАБОТАЕТ",reply_markup=reply.start)
         await state.clear()
