@@ -44,3 +44,7 @@ async def information(msg: Message):
     r = await msg.answer('<b>Секунду...</b>')
     await r.edit_text(text=await info(msg))
     
+@router.message(F.text == "распознать домашку завтра")
+async def information(msg: Message):
+    r = await msg.answer('<b>Секунду...</b>')
+    await r.edit_text(text=await info(msg))

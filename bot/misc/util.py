@@ -8,6 +8,10 @@ def dailyCleanup(dictionary):
     return '\n'.join([f'<b>{key.capitalize()}.</b> {value["name"].capitalize()}' for key, value in dictionary.items()])
 
 async def lessones(msg):
+    date_str, tommorow_day, lessone = await tommorow(msg)
+    return f'Завтра <b>{tommorow_day}, {date_str}</b>\n{lessone}'
+
+async def tommorow(msg):
     time_zone = datetime.timezone(datetime.timedelta(hours=5))
     date = datetime.datetime.now(time_zone)
     if date.weekday() == 4:
@@ -28,7 +32,7 @@ async def lessones(msg):
         lessone = 'Уроков нет, отдыхаем'
     else:
         lessone = dailyCleanup(dictionary[tommorow_day]['lessons'])
-    return f'Завтра <b>{tommorow_day}, {date_str}</b>\n{lessone}'
+    return date_str,tommorow_day,lessone
 
 async def info(msg):
     asa = idProfile(msg.chat.id)
