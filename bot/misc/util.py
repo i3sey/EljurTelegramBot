@@ -1,7 +1,9 @@
 import datetime
 from bot.api import idJournal, idProfile
-
 def cleanup(dictionary):
+    return '\n'.join([f'<b>{key.capitalize()}:</b> {value.capitalize()}' for key, value in dictionary.items()])
+
+def hwcleanup(dictionary):
     return '\n'.join([f'<b>{value["name"].capitalize()}:</b> {value["hometask"]}\n' for key, value in dictionary.items() if value["hometask"] is not None])
 
 def dailyCleanup(dictionary):
@@ -58,6 +60,6 @@ async def Homeworks(msg):
     if dictionary[tommorow_day]['isEmpty'] is True:
         lessone = 'Домашки, как и уроков нет, отдыхаем'
     else:
-        lessone = cleanup(dictionary[tommorow_day]['lessons'])
+        lessone = hwcleanup(dictionary[tommorow_day]['lessons'])
     return f'Завтра <b>{tommorow_day}, {date_str}:</b>\n\n{lessone}'
 
