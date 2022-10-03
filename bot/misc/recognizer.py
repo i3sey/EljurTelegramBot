@@ -21,7 +21,10 @@ def finder(hometask, splitBool):
         f = re.sub(r'(?<=\d)(?!\d)|(?<!\d)(?=\d)', ' ', hometask)
         lst = f.replace('.', '').replace(',', '').split()
     else:
-        lst = hometask.replace('.', '').replace(',', ' ').split()
+        try:
+            lst = hometask.replace('.', '').replace(',', ' ').split()
+        except AttributeError:
+            return
     ist = [i.lower() for i in lst]
     PageLetter = magicLoop(ist, page)
     NumLetter = magicLoop(ist, number)
