@@ -20,7 +20,7 @@ async def todaylessons(msg):
     today_week = datetime.datetime.now(time_zone).weekday()
     day = date.strftime("%d")
     date_str = date.strftime(f"{day}.%m")
-    dictionary = idJournal(msg.chat.id, 1) if today_week in [6, 5, 4] else idJournal(msg.chat.id, 0)
+    dictionary = idJournal(msg.chat.id, 0)
     return dailyCleanup(dictionary[date_str]['lessons'])
 async def tommorow(msg):
     time_zone = datetime.timezone(datetime.timedelta(hours=5))
