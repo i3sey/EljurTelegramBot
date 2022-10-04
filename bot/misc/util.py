@@ -17,11 +17,15 @@ async def lessones(msg):
 async def todaylessons(msg):
     time_zone = datetime.timezone(datetime.timedelta(hours=5))
     date = datetime.datetime.now(time_zone)
-    today_week = datetime.datetime.now(time_zone).weekday()
     day = date.strftime("%d")
     date_str = date.strftime(f"{day}.%m")
     dictionary = idJournal(msg.chat.id, 0)
-    return dailyCleanup(dictionary[date_str]['lessons'])
+    for key, val in dictionary.items():
+        if val['date'] == date_str:
+            today = key
+            break
+    return f'Сегодня <b>{today}, {date_str}</b>\n{dailyCleanup(dictionary[today]["lessons"])}'
+
 async def tommorow(msg):
     time_zone = datetime.timezone(datetime.timedelta(hours=5))
     date = datetime.datetime.now(time_zone)
