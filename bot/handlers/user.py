@@ -5,7 +5,7 @@ from aiogram.filters.state import State, StatesGroup
 from aiogram.fsm.context import FSMContext
 from bot.database import main
 from bot.keyboards import reply
-from bot.misc.util import info, lessones, Homeworks, recohniz
+from bot.misc.util import info, lessones, Homeworks, recohniz, todaylessons
 from aiogram import F
 
 class UserInfo(StatesGroup):
@@ -48,3 +48,8 @@ async def information(msg: Message):
 async def information(msg: Message):
     r = await msg.answer('<b>Секунду...</b>')
     await r.edit_text(text=await recohniz(msg))
+
+@router.message(F.text == "уроки сегодня")
+async def information(msg: Message):
+    r = await msg.answer('<b>Секунду...</b>')
+    await r.edit_text(text=await todaylessons(msg))
