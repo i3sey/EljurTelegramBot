@@ -14,6 +14,14 @@ async def lessones(msg):
     date_str, tommorow_day, lessone = await tommorow(msg)
     return f'Завтра <b>{tommorow_day}, {date_str}</b>\n{lessone}'
 
+async def todaylessons(msg):
+    time_zone = datetime.timezone(datetime.timedelta(hours=5))
+    date = datetime.datetime.now(time_zone)
+    today_week = datetime.datetime.now(time_zone).weekday()
+    day = date.strftime("%d")
+    date_str = date.strftime(f"{day}.%m")
+    dictionary = idJournal(msg.chat.id, 1) if today_week in [6, 5, 4] else idJournal(msg.chat.id, 0)
+    return dailyCleanup(dictionary[date_str]['lessons'])
 async def tommorow(msg):
     time_zone = datetime.timezone(datetime.timedelta(hours=5))
     date = datetime.datetime.now(time_zone)
