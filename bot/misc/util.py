@@ -4,7 +4,7 @@ from bot.misc.recognizer import finder
 
 
 def cleanup(dictionary):
-    return '\n'.join([f'<b>{key.capitalize()}:</b> {value.capitalize()}' for key, value in dictionary.items()])
+    return '\n'.join([f'<b>{key.capitalize() if isinstance(key, str) else " "}:</b> {value.capitalize() if isinstance(value, str) else " "}' for key, value in dictionary.items()])
 
 
 def hwcleanup(dictionary):

@@ -28,7 +28,8 @@ class Profile:
                 break
 
             if tag.name == "label":
-                info |= [(tag.contents[0], None)]
+                label = tag.contents[0]
+                info.update([(label, None)])
 
             elif tag.name == "span":
                 info[label] = tag.contents[0]
