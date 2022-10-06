@@ -5,7 +5,7 @@ from aiogram.filters.state import State, StatesGroup
 from aiogram.fsm.context import FSMContext
 from bot.database import main
 from bot.keyboards import reply
-from bot.misc.util import info, lessones, Homeworks, recohniz, todaylessons
+from bot.functions import info, lessonsToday, recognize, tommorow, tommorowHw, gdzAsking
 from aiogram import F
 
 
@@ -37,29 +37,29 @@ async def start(msg: types.Message, state: FSMContext):
 @router.message(F.text == "домашка завтра")
 async def homework(msg: Message):
     r = await msg.answer('<b>Секунду...</b>')
-    await r.edit_text(text=await Homeworks(msg))
+    await r.edit_text(text=await tommorowHw.Homeworks(msg))
 
 
 @router.message(F.text == "предметы завтра")
 async def lessons(msg: Message):
     r = await msg.answer('<b>Секунду...</b>')
-    await r.edit_text(text=await lessones(msg))
+    await r.edit_text(text=await tommorow.tommorow(msg))
 
 
 @router.message(F.text == "хто я")
 async def information(msg: Message):
     r = await msg.answer('<b>Секунду...</b>')
-    await r.edit_text(text=await info(msg))
-
-
-@router.message(F.text == "распознать домашку завтра")
-async def information(msg: Message):
-    r = await msg.answer('<b>Секунду...</b>')
-    dsadsd = await recohniz(msg)
-    await r.edit_text(text=dsadsd)
+    await r.edit_text(text=await info.info(msg))
 
 
 @router.message(F.text == "уроки сегодня")
 async def information(msg: Message):
     r = await msg.answer('<b>Секунду...</b>')
-    await r.edit_text(text=await todaylessons(msg))
+    await r.edit_text(text=await lessonsToday.todaylessons(msg))
+
+
+@router.message(F.text == 'Гдз запрос ура')
+async def information(msg: Message):
+    await msg.answer('<b>Секунду...</b>')
+    dsadsd, orig= await recognize.recohniz(msg)
+    await gdzAsking.asking(msg, dsadsd, orig)

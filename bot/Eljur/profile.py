@@ -5,6 +5,7 @@ from bot.Eljur.errors import _checkInstance, _checkStatus, _checkSubdomain, _ful
 class Profile:
 
     def getProfile(self, subdomain, session):
+        # sourcery skip: dict-assign-update-to-union, inline-variable, switch
         """
         Получение информации о пользователе.
         Внимание. В данной функции специально не выводится СНИЛС, почта и мобильный телефон пользователя.

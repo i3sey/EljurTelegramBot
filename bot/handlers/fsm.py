@@ -4,7 +4,7 @@ from bot.handlers.user import UserInfo
 from aiogram.types import Message
 from bot.api import newUser, idProfile
 from bot.keyboards import reply
-
+# from bot.functions.gdzAsking import GdzAsking
 router = Router()
 
 
@@ -27,6 +27,9 @@ async def EnterDomain(message: Message, state: FSMContext):
     await state.update_data(EnteredDomain=message.text)
     await message.answer('сек, чекаю')
     await finishRegistration(message, state)
+
+# @router.message(GdzAsking.ask)
+
 
 
 async def finishRegistration(message, state):
