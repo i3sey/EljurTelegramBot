@@ -8,18 +8,22 @@ from bot.keyboards import reply
 from bot.misc.util import info, lessones, Homeworks, recohniz, todaylessons
 from aiogram import F
 
+
 class UserInfo(StatesGroup):
     QL = State()
     QP = State()
     QD = State()
-    
+
+
 router = Router()
+
 
 @router.message(commands=["reset"])
 async def update(msg: Message):
     main.DiaryDB('database.db').resetdb()
     await msg.answer("Кнопки были успешно обновлены!", reply_markup=reply.start)
-    
+
+
 @router.message(commands=["start"])
 async def start(msg: types.Message, state: FSMContext):
     PeopleId = main.DiaryDB('database.db').get(f'{msg.chat.id}_login')
@@ -29,25 +33,31 @@ async def start(msg: types.Message, state: FSMContext):
     else:
         await msg.answer("Кнопки были успешно обновлены!", reply_markup=reply.start)
 
+
 @router.message(F.text == "домашка завтра")
 async def homework(msg: Message):
     r = await msg.answer('<b>Секунду...</b>')
     await r.edit_text(text=await Homeworks(msg))
-        
+
+
 @router.message(F.text == "предметы завтра")
 async def lessons(msg: Message):
     r = await msg.answer('<b>Секунду...</b>')
     await r.edit_text(text=await lessones(msg))
-    
+
+
 @router.message(F.text == "хто я")
 async def information(msg: Message):
     r = await msg.answer('<b>Секунду...</b>')
     await r.edit_text(text=await info(msg))
-    
+
+
 @router.message(F.text == "распознать домашку завтра")
 async def information(msg: Message):
     r = await msg.answer('<b>Секунду...</b>')
-    await r.edit_text(text=await recohniz(msg))
+    dsadsd = await recohniz(msg)
+    await r.edit_text(text=dsadsd)
+
 
 @router.message(F.text == "уроки сегодня")
 async def information(msg: Message):

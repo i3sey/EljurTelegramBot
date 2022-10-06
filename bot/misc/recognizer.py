@@ -19,10 +19,10 @@ def finder(hometask, splitBool):
     )
     if splitBool == True:
         f = re.sub(r'(?<=\d)(?!\d)|(?<!\d)(?=\d)', ' ', hometask)
-        lst = f.replace('.', '').replace(',', '').split()
+        lst = f.replace('.', '').replace(',', ' ').split()
     else:
         try:
-            lst = hometask.replace('.', '').replace(',', ' ').split()
+            lst = hometask.replace(',', ' ').split()
         except AttributeError:
             return
     ist = [i.lower() for i in lst]
@@ -33,9 +33,10 @@ def finder(hometask, splitBool):
     elif NumLetter == -2 and PageLetter != -2:
         return {'page': merge(ist, PageLetter)}
     elif PageLetter == -2:
-        return finder(hometask, True) if splitBool == False else -2
+        return finder(hometask, True) if splitBool == False else None
     else:
         return {'page': merge(ist, PageLetter), 'number': merge(ist, NumLetter)}
+
 
 def merge(ist, Letter):
     e = []
@@ -43,6 +44,7 @@ def merge(ist, Letter):
     for key, value in count.items():
         e.extend(ist[key + i] for i in range(value))
     return e
+
 
 def multiply(ist, Letter):
     count = {}
@@ -59,11 +61,13 @@ def multiply(ist, Letter):
                 break
     return count
 
+
 def magicLoop(ist, page):
     result = []
     for key, i in enumerate(ist):
         result.extend(key + 1 for l in page if i == l)
     return result or -2
+
 
 if __name__ == '__main__':
     while True:
@@ -77,4 +81,3 @@ if __name__ == '__main__':
     # # hometask = 'страница 23,24 Упр 23'
     # result = finder(hometask, False)
     # print(result)
-

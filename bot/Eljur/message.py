@@ -39,7 +39,7 @@ class Message:
                 return checkStatus
             del checkStatus
 
-            listAnswer.update([(typeOf[1], getPattern.json())])
+            listAnswer |= [(typeOf[1], getPattern.json())]
 
         return [listAnswer, typePattern]
 
@@ -75,7 +75,7 @@ class Message:
         pattern = {"csrf": get_cookies.cookies.values()[0],
                    "submit": "Отправить",
                    "cancel": "Отмена"}
-        pattern.update(args)
+        pattern |= args
 
         url = f"https://{subdomain}.eljur.ru/journal-messages-send-action/"
         send = session.post(url, data=pattern)
@@ -114,7 +114,7 @@ class Message:
             return check
         del check
 
-        pattern.update(args)
+        pattern |= args
 
         url = f"https://{subdomain}.eljur.ru/journal-messages-ajax-action"
         send = session.post(url, data=pattern)
@@ -150,7 +150,7 @@ class Message:
         del check
 
         pattern = {"method": "delete"}
-        pattern.update(args)
+        pattern |= args
 
         url = f"https://{subdomain}.eljur.ru/journal-messages-ajax-action/"
         delete = session.post(url, data=pattern)
@@ -183,7 +183,7 @@ class Message:
 
         pattern = {"method": "restore",
                    "1": "inbox"}
-        pattern.update(args)
+        pattern |= args
 
         url = f"https://{subdomain}.eljur.ru/journal-messages-ajax-action/"
         recover = session.post(url, data=pattern)

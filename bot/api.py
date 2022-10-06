@@ -186,7 +186,7 @@ def idFinal(idc, year) -> dict:
 if __name__ == '__main__':
     # newUser(getID(), 'deniskedrovsky', 'Wtpmjgdaa1', '12ekb') # НЕ ЗАБУДЬ ПРО id
     # print(idProfile(getID())) # воркает
-    print(idJournal(getID(), 0)) # воркает
+    print(idJournal(getID(), 0))  # воркает
     # print(peopleList("students")) # воркает
     # print(idSend(getID(), '3401', 'тест', 'заголовок тест')) # воркает
     # print(idGet(getID())) # воркает

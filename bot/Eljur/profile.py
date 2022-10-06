@@ -28,10 +28,9 @@ class Profile:
                 break
 
             if tag.name == "label":
-                label = tag.contents[0]
-                info.update([(label, None)])
+                info |= [(tag.contents[0], None)]
 
-            if tag.name == "span":
+            elif tag.name == "span":
                 info[label] = tag.contents[0]
 
         return info
@@ -82,9 +81,7 @@ class Security:
             return checkStatus
         del checkStatus
 
-        if "Ваш пароль успешно изменен!" in answer.text:
-            return True
-        return False
+        return "Ваш пароль успешно изменен!" in answer.text
 
 
 class Settings:
@@ -120,10 +117,7 @@ class Settings:
         if "error" in checkStatus:
             return checkStatus
 
-        if "result" not in checkStatus:
-            return False
-        else:
-            return checkStatus["result"]
+        return False if "result" not in checkStatus else checkStatus["result"]
 
     def switcher(self, subdomain, session, choose, switch):
         """
@@ -140,8 +134,6 @@ class Settings:
         :return: Словарь с ошибкой или bool ответ, в котором True - успешное переключение. // dict или bool
         """
 
-        numSwitch = [0, 1]
-        numStrSwitch = ["0", "1"]
         strSwitch = ["checkforwardedemail", "schedule_default_student"]
         switchers = {"checkforwardedemail": {"on": "on",
                                              "off": "off"},
@@ -165,15 +157,16 @@ class Settings:
             checkStr = _checkInstance(choose, str)
             if "error" in checkStr:
                 return checkStr
-            else:
-                if choose not in strSwitch:
-                    if choose not in numStrSwitch:
-                        return {"error": {"error_code": -302,
-                                          "error_msg": f"Вашего выбора нет в предложенных. {choose}"}}
-                    else:
-                        data["0"] = strSwitch[int(choose)]
-                data["0"] = choose
+            if choose not in strSwitch:
+                numStrSwitch = ["0", "1"]
+                if choose in numStrSwitch:
+                    data["0"] = strSwitch[int(choose)]
+                else:
+                    return {"error": {"error_code": -302,
+                                      "error_msg": f"Вашего выбора нет в предложенных. {choose}"}}
+            data["0"] = choose
         else:
+            numSwitch = [0, 1]
             if choose not in numSwitch:
                 return {"error": {"error_code": -302,
                                   "error_msg": f"Вашего выбора нет в предложенных. {choose}"}}
@@ -196,7 +189,4 @@ class Settings:
         if "error" in checkStatus:
             return checkStatus
 
-        if "result" not in checkStatus:
-            return False
-        else:
-            return checkStatus["result"]
+        return False if "result" not in checkStatus else checkStatus["result"]

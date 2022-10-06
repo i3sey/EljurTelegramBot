@@ -25,20 +25,11 @@ def _checkStatus(err, url):
 
 def _checkSubdomain(subdomain):
     subdomain = re.search(r"[a-zA-Z0-9]+", subdomain)
-    if not subdomain:
-        return {"error": {"error_code": -101,
-                          "error_msg": "Поддомен не найден"}}
-    else:
-        return subdomain[0]
+    return subdomain[0] if subdomain else {"error": {"error_code": -101, "error_msg": "Поддомен не найден"}}
 
 
 def _checkInstance(obj, cls):
-    if not isinstance(obj, cls):
-        return {"error": {"error_code": -201,
-                          "error_msg": f"Экземпляр не пренадлежит к классу. {type(obj)} - {type(cls)}"}}
-    else:
-        return {"answer": "Ok",
-                "result": True}
+    return {"answer": "Ok", "result": True} if isinstance(obj, cls) else {"error": {"error_code": -201, "error_msg": f"Экземпляр не пренадлежит к классу. {type(obj)} - {type(cls)}"}}
 
 
 def _fullCheck(subdomain, session, url, data=None):

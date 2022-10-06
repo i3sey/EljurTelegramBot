@@ -32,7 +32,7 @@ class Journal:
             week, date = title.contents[0].strip().replace("\n", "").split(", ")
 
             if day.find("div", class_="page-empty"):
-                info.update([(week, {"date": date, "isEmpty": True, "comment": "Нет уроков", "lessons": {}})])
+                info |= [(week, {"date": date, "isEmpty": True, "comment": "Нет уроков", "lessons": {}})]
                 continue
 
             if day.find("div", class_="dnevnik-day__holiday"):
@@ -44,7 +44,7 @@ class Journal:
             if lessons:
                 for lesson in lessons:
                     lessonNumber = lesson.find("div", class_="dnevnik-lesson__number dnevnik-lesson__number--time")
-                    if lessonNumber == None:
+                    if lessonNumber is None:
                         continue
                     if lessonNumber:
                         lessonNumber = lessonNumber.contents[0].replace("\n", "").strip()[:-1]
@@ -60,10 +60,8 @@ class Journal:
                     if lessonMark:
                         lessonMark = lessonMark.contents[1].attrs["value"]
 
-                    lessonsDict.update([(lessonNumber, {"time": lessonTime,
-                                                        "name": lessonName,
-                                                        "hometask": lessonHomeTask,
-                                                        "mark": lessonMark})])
+                    lessonsDict |= [(lessonNumber, {"time": lessonTime, "name": lessonName, "hometask": lessonHomeTask, "mark": lessonMark})]
+
 
                 info.update([(week, {"date": date, "isEmpty": False, "comment": "Выходной", "lessons": lessonsDict})])
 

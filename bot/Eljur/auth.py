@@ -60,14 +60,7 @@ class Authorization:
 
         sentryData = _findData(soup)
         del soup
-        if not sentryData:
-            return {"error": {"error_code": -104,
-                              "error_msg": "Данные о пользователе не найдены."}}
-
-        return {"answer": json.loads(sentryData[17:-1]),
-                "session": session,
-                "subdomain": subdomain,
-                "result": True}
+        return {"answer": json.loads(sentryData[17:-1]), "session": session, "subdomain": subdomain, "result": True} if sentryData else {"error": {"error_code": -104, "error_msg": "Данные о пользователе не найдены."}}
 
     def recover(self, subdomain, email):
         """
@@ -96,9 +89,4 @@ class Authorization:
         if "error" in checkStatus:
             return checkStatus
 
-        if not answer.json()["result"]:
-            return {"error": {"error_code": -105,
-                              "error_msg": answer.json()['error'],
-                              "full_error": answer.json()}}
-        return {"answer": "Сообщение успешно отправлено на почту.",
-                "result": True}
+        return {"answer": "Сообщение успешно отправлено на почту.", "result": True} if answer.json()["result"] else {"error": {"error_code": -105, "error_msg": answer.json()['error'], "full_error": answer.json()}}
