@@ -1,6 +1,6 @@
 import datetime
 import re
-from bot.api import idJournal
+from bot.functions.api import idJournal
 from bot.misc.util import merge, magicLoop
 
 
