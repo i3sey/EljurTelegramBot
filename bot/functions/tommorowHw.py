@@ -13,8 +13,7 @@ async def Homeworks(msg):
     else:
         date += datetime.timedelta(days=1)
     today_week = datetime.datetime.now(time_zone).weekday()
-    dictionary = idJournal(msg.chat.id, 1) if today_week in [
-        6, 5, 4] else idJournal(msg.chat.id, 0)
+    dictionary = idJournal(msg.chat.id, 1) if today_week in [6, 5, 4] else idJournal(msg.chat.id, 0)
     day = date.strftime("%d")
     date_str = date.strftime(f"{day}.%m")
     for key, val in dictionary.items():

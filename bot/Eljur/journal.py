@@ -54,7 +54,11 @@ class Journal:
 
                     lessonHomeTask = lesson.find("div", class_="dnevnik-lesson__task")
                     if lessonHomeTask:
-                        lessonHomeTask = lessonHomeTask.contents[2].replace("\n", "").strip()
+                        if isinstance(lessonHomeTask.contents[2], str):
+                            lessonHomeTask = lessonHomeTask.contents[2].replace("\n", "").strip()
+                        else:
+                            lessonHomeTask = lessonHomeTask.find('a', class_="b-href external-link")
+                            lessonHomeTask = lessonHomeTask.get('href')
 
                     lessonMark = lesson.find("div", class_="dnevnik-mark")
                     if lessonMark:
