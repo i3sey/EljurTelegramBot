@@ -1,4 +1,5 @@
 from aiogram import types
+
 buttons = [
         [
             types.InlineKeyboardButton(text="Не", callback_data="nope"),

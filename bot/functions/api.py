@@ -1,10 +1,9 @@
 from bot.database.main import DiaryDB
 from Eljur.auth import Authorization
-from Eljur.profile import Profile
 from Eljur.journal import Journal
 from Eljur.message import Message
 from Eljur.portfolio import Portfolio
-
+from Eljur.profile import Profile
 
 db = DiaryDB('database.db')
 
@@ -39,9 +38,11 @@ def getID() -> idc:
 
 def idProfile(idc) -> dict or 1:
     authorisation = Authorization()
-
+    loginTest = db.get(f'{idc}_login')
+    if loginTest == False:
+        return 1
     data = {
-        "username": db.get(f'{idc}_login'),
+        "username": loginTest,
         "password": db.get(f'{idc}_password')
     }
     subdomain = db.get(f'{idc}_domain')
@@ -58,8 +59,11 @@ def idProfile(idc) -> dict or 1:
 def idJournal(idc, week) -> dict or 1:
     authorisation = Authorization()
 
+    loginTest = db.get(f'{idc}_login')
+    if loginTest == False:
+        return 1
     data = {
-        "username": db.get(f'{idc}_login'),
+        "username": loginTest,
         "password": db.get(f'{idc}_password')
     }
     subdomain = db.get(f'{idc}_domain')
@@ -75,9 +79,11 @@ def idJournal(idc, week) -> dict or 1:
 
 def idSchoolList(idc) -> list or 1:
     authorisation = Authorization()
-
+    loginTest = db.get(f'{idc}_login')
+    if loginTest == False:
+        return 1
     data = {
-        "username": db.get(f'{idc}_login'),
+        "username": loginTest,
         "password": db.get(f'{idc}_password')
     }
     subdomain = db.get(f'{idc}_domain')
@@ -108,9 +114,11 @@ def peopleList(category) -> dict or 1:
 
 def idSend(idc, idp, message, name) -> bool or dict:
     authorisation = Authorization()
-
+    loginTest = db.get(f'{idc}_login')
+    if loginTest == False:
+        return 1
     data = {
-        "username": db.get(f'{idc}_login'),
+        "username": loginTest,
         "password": db.get(f'{idc}_password')
     }
     subdomain = db.get(f'{idc}_domain')
@@ -131,9 +139,11 @@ def idSend(idc, idp, message, name) -> bool or dict:
 
 def idGet(idc) -> dict:
     authorisation = Authorization()
-
+    loginTest = db.get(f'{idc}_login')
+    if loginTest == False:
+        return 1
     data = {
-        "username": db.get(f'{idc}_login'),
+        "username": loginTest,
         "password": db.get(f'{idc}_password')
     }
     subdomain = db.get(f'{idc}_domain')
@@ -149,9 +159,11 @@ def idGet(idc) -> dict:
 
 def idReport(idc) -> dict:
     authorisation = Authorization()
-
+    loginTest = db.get(f'{idc}_login')
+    if loginTest == False:
+        return 1
     data = {
-        "username": db.get(f'{idc}_login'),
+        "username": loginTest,
         "password": db.get(f'{idc}_password')
     }
     subdomain = db.get(f'{idc}_domain')
@@ -167,9 +179,11 @@ def idReport(idc) -> dict:
 
 def idFinal(idc, year) -> dict:
     authorisation = Authorization()
-
+    loginTest = db.get(f'{idc}_login')
+    if loginTest == False:
+        return 1
     data = {
-        "username": db.get(f'{idc}_login'),
+        "username": loginTest,
         "password": db.get(f'{idc}_password')
     }
     subdomain = db.get(f'{idc}_domain')

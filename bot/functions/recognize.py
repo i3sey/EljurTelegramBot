@@ -1,7 +1,8 @@
 import datetime
 import re
+
 from bot.functions.api import idJournal
-from bot.misc.util import merge, magicLoop
+from bot.misc.util import magicLoop, merge
 
 
 async def recohniz(msg):
@@ -16,6 +17,8 @@ async def recohniz(msg):
     today_week = datetime.datetime.now(time_zone).weekday()
     dictionary = idJournal(msg.chat.id, 1) if today_week in [
         6, 5, 4] else idJournal(msg.chat.id, 0)
+    if dictionary == 1:
+        return -99, -91
     day = date.strftime("%d")
     date_str = date.strftime(f"{day}.%m")
     for key, val in dictionary.items():

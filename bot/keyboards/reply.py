@@ -1,4 +1,5 @@
 from aiogram import types
+
 kb = [
     [types.KeyboardButton(text='Гдз запрос ура')],
     [types.KeyboardButton(text="уроки сегодня")],

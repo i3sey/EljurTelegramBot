@@ -7,12 +7,13 @@ load_dotenv()
 token = os.environ['MONGOTOKEN']
 
 class DiaryDB(object):
-    
+
     client = MongoClient(token)
 
     dbm = client.tempUsers
     collection = dbm.AIO
     posts = dbm.posts
+    backup = dbm.Backup
 
     def __init__(self, location):
         self.location = os.path.expanduser(location)
@@ -24,11 +25,11 @@ class DiaryDB(object):
         return True
 
     def dumpdb(self):
-        try:
-            post_id = self.posts.insert_one(self.db).inserted_id
-            return True
-        except Exception:
-            return False
+        self.backup.update_one({'_id': self.db['_id']}, {'$set' : self.db}, upsert=True)
+        # self.posts.drop()
+        self.posts.update_one({'_id': self.db['_id']}, {'$set' : self.db}, upsert=True)
+        # post_id1 = self.posts.insert_one(self.db).inserted_id
+        return True
 
     def set(self, key, value):
         try:
