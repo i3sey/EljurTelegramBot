@@ -30,9 +30,9 @@ async def tlcmd(message: Message) -> None:
         end = await shedule.sort_time(await shedule.str_timing(lessonsEnds))
         now = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=5)))
         if start[1][1] < end[1][1]:
-            answer = f'До начала {start[0][0]} урока: <code>{now.strftime("%H:%M:%S")}</code>\nУрок начнётся в <code>{str(lessonStarts[start[0][0]])}:00</code>'
+            answer = f'До начала {start[0][0]} урока: <code>{datetime.strftime(datetime.datetime.utcfromtimestamp(start[0][1]), "%H:%M:%S")}</code>\nУрок начнётся в <code>{str(lessonStarts[start[0][0]])}:00</code>'
         else:
-            answer = f'До конца {end[0][0]} урока: <code>{now.strftime("%H:%M:%S")}</code>\nУрок закончится в: <code>{str(lessonsEnds[end[0][0]])}:00</code>'
+            answer = f'До конца {end[0][0]} урока: <code>{datetime.strftime(datetime.datetime.utcfromtimestamp(start[0][1]), "%H:%M:%S")}</code>\nУрок закончится в: <code>{str(lessonsEnds[end[0][0]])}:00</code>'
         await message.answer(answer)
 
 @router.message(commands=['ts'])
