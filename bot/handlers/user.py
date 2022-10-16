@@ -43,6 +43,10 @@ async def tscmd(message: Message) -> None:
     result = "\n".join(strings)
     await message.answer(result)
 
+@router.message(commands=['srs'])
+async def srscmd(message: Message) -> None:
+    await message.answer('srs')
+
 @router.callback_query(text="nope")
 async def cancel(msg: Message, state: FSMContext):
     await msg.answer('пока не воркает')
