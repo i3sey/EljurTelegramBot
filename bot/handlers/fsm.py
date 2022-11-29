@@ -23,7 +23,7 @@ async def EnterLogin(message: Message, state: FSMContext):
 async def EnterPassword(message: Message, state: FSMContext):
     await state.update_data(EnteredPassword=message.text)
     await message.delete()
-    await loginMsg.msg.edit_text(text='домен дай')
+    await loginMsg.msg.edit_text(text='домен дай(если в 12 лицее учишся — вводи 12ekb)')
     await state.set_state(UserInfo.QD)
 
 
