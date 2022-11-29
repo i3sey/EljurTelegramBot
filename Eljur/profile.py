@@ -5,7 +5,7 @@ from Eljur.errors import _checkInstance, _checkStatus, _checkSubdomain, _fullChe
 class Profile:
 
     def getProfile(self, subdomain, session):
-        # sourcery skip: dict-assign-update-to-union, inline-variable, switch
+        # sourcery skip: dict-assign-update-to-union, inline-variable, merge-dict-assign, switch
         """
         Получение информации о пользователе.
         Внимание. В данной функции специально не выводится СНИЛС, почта и мобильный телефон пользователя.
@@ -22,19 +22,10 @@ class Profile:
         if "error" in soup:
             return soup
 
-        label = None
         info = {}
-        for tag in soup.find_all(["label", "span"], class_=["ej-form-label", "control-label"]):
-            if tag.contents[0] == "СНИЛС":
-                break
-
-            if tag.name == "label":
-                label = tag.contents[0]
-                info.update([(label, None)])
-
-            elif tag.name == "span":
-                info[label] = tag.contents[0]
-
+        info['Фамилия'] = soup.find("input", id='lastname').attrs['value']
+        info['Имя'] = soup.find("input", id='firstname').attrs['value']
+        info['Отчество'] = soup.find("input", id='middlename').attrs['value']
         return info
 
 
