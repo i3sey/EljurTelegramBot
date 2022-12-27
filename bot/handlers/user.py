@@ -78,25 +78,33 @@ async def start(msg: types.Message, state: FSMContext):
 @router.message(F.text == "домашка завтра")
 async def homework(msg: Message):
     r = await msg.answer('<b>Секунду...</b>')
-    await r.edit_text(text=await tommorowHw.Homeworks(msg))
+    text = await tommorowHw.Homeworks(msg)
+    await r.delete()
+    await msg.answer(text, reply_markup=reply.start)
 
 
 @router.message(F.text == "предметы завтра")
 async def lessons(msg: Message):
     r = await msg.answer('<b>Секунду...</b>')
-    await r.edit_text(text=await tommorow.tommorow(msg))
+    text=await tommorow.tommorow(msg)
+    await r.delete()
+    await msg.answer(text, reply_markup=reply.start)
 
 
 @router.message(F.text == "хто я")
 async def information(msg: Message):
     r = await msg.answer('<b>Секунду...</b>')
-    await r.edit_text(text=await info.info(msg))
+    text=await tommorow.tommorow(msg)
+    await r.delete()
+    await msg.answer(text, reply_markup=reply.start)
 
 
 @router.message(F.text == "уроки сегодня")
 async def information(msg: Message):
     r = await msg.answer('<b>Секунду...</b>')
-    await r.edit_text(text=await lessonsToday.todaylessons(msg))
+    text=await tommorow.tommorow(msg)
+    await r.delete()
+    await msg.answer(text, reply_markup=reply.start)
 
 
 @router.message(F.text == 'Гдз запрос ура')
