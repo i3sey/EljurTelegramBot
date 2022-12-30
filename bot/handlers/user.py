@@ -74,6 +74,9 @@ async def start(msg: types.Message, state: FSMContext):
     else:
         await msg.answer("Кнопки были успешно обновлены!", reply_markup=reply.start)
 
+@router.message(F.text == "Будит")
+async def ny(msg: Message):
+    await msg.answer('<b>Не будит</b>')
 
 @router.message(F.text == "домашка завтра")
 async def homework(msg: Message):
