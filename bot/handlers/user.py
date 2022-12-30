@@ -43,6 +43,10 @@ async def tscmd(message: Message) -> None:
     result = "\n".join(strings)
     await message.answer(result)
 
+@router.message(commands=['/bydit'])
+async def bdnycmd(message: Message) -> None:
+    await message.answer('Не будет')
+
 @router.message(commands=['srs'])
 async def srscmd(message: Message) -> None:
     await message.answer('srs')
