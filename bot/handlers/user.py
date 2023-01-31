@@ -101,7 +101,7 @@ async def lessons(msg: Message):
 @router.message(F.text == "хто я")
 async def information(msg: Message):
     r = await msg.answer('<b>Секунду...</b>')
-    text=await tommorow.tommorow(msg)
+    text=await info.info(msg)
     await r.delete()
     await msg.answer(text, reply_markup=reply.start)
 
@@ -109,7 +109,7 @@ async def information(msg: Message):
 @router.message(F.text == "уроки сегодня")
 async def information(msg: Message):
     r = await msg.answer('<b>Секунду...</b>')
-    text=await tommorow.tommorow(msg)
+    text=await lessonsToday.todaylessons(msg)
     await r.delete()
     await msg.answer(text, reply_markup=reply.start)
 
