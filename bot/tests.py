@@ -1,9 +1,6 @@
 import unittest
-from bot.functions import (gdzAsking, info, lessonsToday, recognize, shedule,
+from bot.functions import (info, shedule,
                            tommorow, tommorowHw)
-# Your functions here
-
-# Tests for your functions
 class TestFunctions(unittest.IsolatedAsyncioTestCase):
     async def test_tommorow_lessons(self):
         class msg():
