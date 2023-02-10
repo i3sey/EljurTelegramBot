@@ -60,3 +60,20 @@ async def str_timing(sche_dict):
                                 seconds=from_sche.second)
             time_delta[i[0]] = (delta_2-delta_1)
         return time_delta
+
+async def Tlschedule(message):
+    """Конец/Начало близжайшего урока"""
+    lessonStarts = {}
+    lessonsEnds = {}
+    temp = await days_schedule()
+    for key, value in temp.items():
+        lessonStarts[key] = value.split('–', maxsplit=1)[0]
+        lessonsEnds[key] = value.split('–')[1]
+    start = await sort_time(await str_timing(lessonStarts))
+    end = await sort_time(await str_timing(lessonsEnds))
+    now = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=5)))
+    if start[1][1] < end[1][1]:
+        answer = f'До начала {start[0][0]} урока: <code>{datetime.datetime.utcfromtimestamp(start[0][1]).strftime("%H:%M:%S")}</code>\nУрок начнётся в <code>{str(lessonStarts[start[0][0]])}:00</code>'
+    else:
+        answer = f'До конца {end[0][0]} урока: <code>{datetime.datetime.utcfromtimestamp(end[0][1]).strftime("%H:%M:%S")}</code>\nУрок закончится в: <code>{str(lessonsEnds[end[0][0]])}:00</code>'
+    await message.answer(answer)
