@@ -7,7 +7,16 @@ async def days_schedule():
             dict: schedule of currect day
         """
         date = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=5)))
+        # class date:     debug
+        #     hour = 22 
+        #     minute = 16
         day = date.isoweekday()
+        # day = 6
+        if day in [1, 6, 7]:
+            if (date.hour == 15 and date.minute >= 30) or (date.hour > 15):
+                day += 1
+        elif (date.hour == 14 and date.minute >= 55) or (date.hour > 14):
+            day += 1
         return {
             '1': '08:45–09:25',
             '2': '09:30–10:10',
