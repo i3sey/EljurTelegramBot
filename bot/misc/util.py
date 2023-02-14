@@ -10,11 +10,20 @@ def dailyCleanup(dictionary):
     return '\n'.join([f'<b>{key.capitalize()}.</b> {value["name"].capitalize()}' for key, value in dictionary.items()])
 
 
+# Defines a function to loop through a list and yield a result or -2 
 def magicLoop(ist, page):
+    # Initializes an empty list
     result = []
+
+    # Iterates through the list argument "ist" and uses enumerate() to add a counter to it
     for key, i in enumerate(ist):
-        result.extend(key + 1 for l in page if i == l)
+    
+        # Extends the list "result" by adding a number and incrementing by 1 for each element
+        # that is equal to an element in the second argument "page"
+        result.extend(key + 1 for l in page if i == l and ist[key + 1].isnumeric())
+    # Returns the result, or if the list is empty, returns -2
     return result or -2
+
 
 
 def merge(ist, Letter):
