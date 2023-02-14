@@ -7,7 +7,7 @@ from aiogram.fsm.context import FSMContext
 from bot.classes.classes import UserInfo, loginMsg
 from bot.database import main
 from bot.functions import (gdzAsking, info, lessonsToday, recognize, shedule,
-                           tommorow, tommorowHw)
+                           tommorow, tommorowHw, hwSend)
 from bot.keyboards import reply
 
 router = Router()
@@ -42,12 +42,14 @@ async def cancel(msg: Message, state: FSMContext):
     await msg.answer('пока не воркает')
 
 @router.callback_query(text="edit")
-async def cancel(msg: Message, state: FSMContext):
+async def edit(msg: Message, state: FSMContext):
     await msg.answer('пока не воркает')
 
 @router.callback_query(text="ok")
-async def cancel(msg: Message, state: FSMContext):
-    await msg.answer('пока не воркает')
+async def ok(callback_query, state: FSMContext):
+    await callback_query.answer('пока не воркает')
+    await callback_query.message.answer(await hwSend.hwSend(callback_query.message.html_text))
+    
 
 # @router.message(commands=["reset"])
 # async def update(msg: Message):
