@@ -48,7 +48,11 @@ async def edit(msg: Message, state: FSMContext):
 @router.callback_query(text="ok")
 async def ok(callback_query, state: FSMContext):
     await callback_query.answer('пока не воркает')
-    await callback_query.message.answer(await hwSend.hwSend(callback_query.message.html_text))
+    mes, pg, nm, sj = await hwSend.hwSend(callback_query.message.html_text)
+    r = await callback_query.message.answer(mes)
+    if sj == 'физика':
+        await r.delete()
+        await callback_query.message.answer(f'гдз по Физике: https://reshak.ru/reshebniki/fizika/9/perishkin/images1/new/Upr/{nm}.png')
     
 
 # @router.message(commands=["reset"])
