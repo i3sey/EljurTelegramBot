@@ -52,7 +52,7 @@ async def ok(callback_query, state: FSMContext):
     r = await callback_query.message.answer(mes)
     if sj == 'физика':
         await r.delete()
-        await callback_query.message.answer(f'гдз по Физике: https://reshak.ru/reshebniki/fizika/9/perishkin/images1/new/Upr/{nm}.png')
+        await callback_query.message.answer(f'гдз по Физике: https://reshak.ru/reshebniki/fizika/9/perishkin/images1/new/Upr/{int(nm)+4 if int(nm)>20 else nm}.png')
     
 
 # @router.message(commands=["reset"])
