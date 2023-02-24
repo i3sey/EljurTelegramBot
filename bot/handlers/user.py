@@ -33,9 +33,9 @@ async def tscmd(message: Message) -> None:
 async def bdnycmd(message: Message) -> None:
     await message.answer('Не будет')
 
-@router.message(commands=['srs'])
+@router.message(commands=['y'])
 async def srscmd(message: Message) -> None:
-    await message.answer('srs')
+    await message.answer('🎰')
 
 @router.callback_query(text="nope")
 async def cancel(msg: Message, state: FSMContext):
