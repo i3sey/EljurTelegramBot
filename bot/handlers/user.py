@@ -3,11 +3,10 @@ from email.message import Message
 
 from aiogram import F, Router, types
 from aiogram.fsm.context import FSMContext
-
 from bot.classes.classes import UserInfo, loginMsg
 from bot.database import main
 from bot.functions import (gdzAsking, info, lessonsToday, recognize, shedule,
-                           tommorow, tommorowHw, hwSend)
+                           tommorow, tommorowHw, hwSend, update)
 from bot.keyboards import reply
 
 router = Router()
@@ -17,6 +16,11 @@ async def editReg(msg: Message, state: FSMContext):
     loginMsg.msg = await msg.answer('Привет, гони логин')
     await state.set_state(UserInfo.QL)
 
+@router.message(commands=['update'])
+async def update(message: Message) -> None:
+    if message.chat.id == 882076783:
+        await message.answer(update.updateq())
+    
 @router.message(commands=['tl'])
 async def tlcmd(message: Message) -> None:
         await shedule.Tlschedule(message)
