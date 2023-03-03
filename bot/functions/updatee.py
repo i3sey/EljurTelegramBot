@@ -1,4 +1,4 @@
 import os
 
 def updateq():
-    return os.popen('ls').read()
+    return os.popen('git pull').read()
