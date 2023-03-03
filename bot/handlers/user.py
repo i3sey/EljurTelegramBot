@@ -19,7 +19,7 @@ async def editReg(msg: Message, state: FSMContext):
 @router.message(commands=['update'])
 async def update(message: Message) -> None:
     if message.chat.id == 882076783:
-        await message.answer(f'<code>{updatee.updateq()}</code>' if updatee.updateq() else 'no')
+        await message.answer(f'<code>{updatee.updateq()}</code>' if updatee.updateq() else 'no') #fffffff
     
 @router.message(commands=['tl'])
 async def tlcmd(message: Message) -> None:
