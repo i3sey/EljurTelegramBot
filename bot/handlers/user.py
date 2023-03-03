@@ -16,10 +16,16 @@ async def editReg(msg: Message, state: FSMContext):
     loginMsg.msg = await msg.answer('Привет, гони логин')
     await state.set_state(UserInfo.QL)
 
+
+# Routes updates telegram bot command 'update' to this function using decorator.
 @router.message(commands=['update'])
+# Asynchronous function declaration with message object as arguement and returning None.
 async def update(message: Message) -> None:
+    # Checking if message is coming from chat with specific chat ID.
     if message.chat.id == 882076783:
-        await message.answer(f'<code>{updatee.updateq()}</code>' if updatee.updateq() else 'no') #fffffff
+        # If yes then calling the `updateq()` and sending its output in HTML code format.
+        await message.answer(f'<code>{updatee.updateq()}</code>' if updatee.updateq() else 'no')
+
     
 @router.message(commands=['tl'])
 async def tlcmd(message: Message) -> None:
@@ -37,9 +43,9 @@ async def tscmd(message: Message) -> None:
 async def bdnycmd(message: Message) -> None:
     await message.answer('Не будет')
 
-@router.message(commands=['y'])
+@router.message(commands=['srs'])
 async def srscmd(message: Message) -> None:
-    await message.answer('🎰')
+    await message.answer('srs')
 
 @router.callback_query(text="nope")
 async def cancel(msg: Message, state: FSMContext):
