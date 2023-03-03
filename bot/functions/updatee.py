@@ -1,4 +1,5 @@
-import os
+import subprocess
 
 def updateq():
-    return os.popen('git pull').read()
+    result = subprocess.run(['git', 'pull'], stdout=subprocess.PIPE)
+    return result.stdout.decode('utf-8')
