@@ -59,20 +59,20 @@ async def edit(msg: Message, state: FSMContext):
 
 @router.callback_query(text="ok")
 async def ok(callback_query, state: FSMContext):
-    await callback_query.answer('пока не воркает')
+    # await callback_query.answer('пока не воркает')
     mes, pg, nm, sj = await hwSend.hwSend(callback_query.message.html_text)
     r = await callback_query.message.answer(mes)
     await callback_query.message.delete()
     url = dbm.get(sj)
     if url != -1:
-        url = url['url']
         nonfileurl = url['nonfileurl']
+        url = url['url']
         donedUrl = eval(f"f'{url}'") #needs to be chaged #TODO
         await callback_query.message.answer(f'{hide_link(donedUrl)}'
                                             f'{nonfileurl}') 
     else:
         await r.delete()
-        await callback_query.message.answer('Я пока не умею')
+        await callback_query.message.answer('Я пока не умею этот предмет')
 
 @router.message(commands=["start"])
 async def start(msg: types.Message, state: FSMContext):
