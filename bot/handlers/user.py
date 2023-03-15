@@ -66,8 +66,10 @@ async def ok(callback_query, state: FSMContext):
     url = dbm.get(sj)
     if url != -1:
         nonfileurl = url['nonfileurl']
+        nonfileurl = eval(f"f'{nonfileurl}'")
         url = url['url']
         donedUrl = eval(f"f'{url}'") #needs to be chaged #TODO
+        await r.delete()
         await callback_query.message.answer(f'{hide_link(donedUrl)}'
                                             f'{nonfileurl}') 
     else:
