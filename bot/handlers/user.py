@@ -48,8 +48,8 @@ async def srscmd(message: Message) -> None:
     await message.answer('srs')
 
 @router.callback_query(text="nope")
-async def cancel(msg: Message, state: FSMContext):
-    await msg.answer('пока не воркает')
+async def cancel(callback_query, state: FSMContext):
+    await callback_query.message.delete()
 
 @router.callback_query(text="edit")
 async def edit(msg: Message, state: FSMContext):
