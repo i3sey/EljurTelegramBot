@@ -1,6 +1,9 @@
+from Eljur.errors import _fullCheck
+
+
 class Timetable:
 
-    def timetable(self, subdomain, session, week):
+    def numklassGetting(self, subdomain, session, week=0):
         """
         Получение страницы расписания.
 
@@ -12,6 +15,16 @@ class Timetable:
                  answer // dict
                  result // bool
         """
+        url = f'https://{subdomain}.eljur.ru/journal-schedule-action/'
+        
+        soup = _fullCheck(subdomain, session, url)
+        if "error" in soup:
+            return soup
+        
+        if answer := soup.find("td", class_="left left_min"):
+            return answer
+            
+        
         return
 
     def journal(self, subdomain, session, week=0):

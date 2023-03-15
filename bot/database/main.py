@@ -63,3 +63,22 @@ class DiaryDB(object):
     def resetdb(self):
         self.dbm.drop_collection(self.collection)
         return True
+    
+    
+class BooksDB(object):
+    client = MongoClient(token)
+    db = client.books
+    collection = db['9th_klass']
+    
+    def add(self, subject_name, nonfileurl, url):
+        post = {'subject_name': subject_name,
+                'nonfileurl' : nonfileurl,
+                'url': url}
+        posts = self.db.posts
+        posts_id = posts.insert_one(post).inserted_id
+    
+    def get(self, subject_name):
+        posts = self.db.posts
+        post = posts.find_one({'subject_name': subject_name})
+        return post if post else -1
+        

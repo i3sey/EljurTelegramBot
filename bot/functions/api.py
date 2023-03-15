@@ -4,6 +4,7 @@ from Eljur.journal import Journal
 from Eljur.message import Message
 from Eljur.portfolio import Portfolio
 from Eljur.profile import Profile
+from Eljur.timetable import Timetable
 
 db = DiaryDB('database.db')
 
@@ -35,6 +36,23 @@ def getID() -> idc:
     idc = '882076783'
     return idc
 
+def idKlass(idc) -> int or -1:
+    authorisation = Authorization()
+    loginTest = db.get(f'{idc}_login')
+    if loginTest == False:
+        return 1
+    data = {
+        "username": loginTest,
+        "password": db.get(f'{idc}_password')
+    }
+    subdomain = db.get(f'{idc}_domain')
+
+    answer = authorisation.login(subdomain, data)
+    if "session" not in answer:
+        print(answer)
+        return 1
+    timetable = Timetable()
+    return timetable.numklassGetting(subdomain, answer["session"]).text.replace('\n', '')[:-1]
 
 def idProfile(idc) -> dict or 1:
     authorisation = Authorization()
