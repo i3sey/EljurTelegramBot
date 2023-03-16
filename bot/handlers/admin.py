@@ -22,6 +22,6 @@ async def addbook(msg: Message, command: CommandObject) -> None:
         if command.args:
             data = command.args.split(';')
             dbm.add(data[0], data[1], data[2])
-            msg.answer('done')
+            await msg.answer('done')
         else:
-            msg.answer('pg и nm')
+            await msg.answer('pg и nm')
