@@ -25,3 +25,9 @@ async def addbook(msg: Message, command: CommandObject) -> None:
             await msg.answer('done')
         else:
             await msg.answer('pg и nm')
+@router.message(commands=['e'])
+async def addbook(msg: Message, command: CommandObject) -> None:
+    if msg.chat.id == 882076783:
+        if command.args:
+            eval(command.args)
+            await msg.answer('done')
