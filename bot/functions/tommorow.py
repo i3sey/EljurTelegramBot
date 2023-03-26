@@ -27,5 +27,5 @@ async def tommorow(msg):
     if dictionary[tommorow_day]['isEmpty'] is True:
         lessone = 'Уроков нет, отдыхаем'
     else:
-        lessone = dailyCleanup(dictionary[tommorow_day]['lessons'])
-    return f'Завтра <b>{tommorow_day}, {date_str}</b>\n{lessone}'
+        lessone, urls = dailyCleanup(dictionary[tommorow_day]['lessons'])
+    return f'Завтра <b>{tommorow_day}, {date_str}</b>\n{lessone}', urls
