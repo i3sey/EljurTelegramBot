@@ -100,7 +100,7 @@ async def homeworkTM(msg: Message):
 @router.message(F.text == "предметы завтра")
 async def lessonsTommorow(msg: Message):
     r = await msg.answer('<b>Секунду...</b>')
-    text = await tommorow.tommorow(msg)
+    text, urls = await tommorow.tommorow(msg)
     await r.delete()
     await msg.answer(text, reply_markup=reply.start)
 
@@ -146,7 +146,11 @@ async def lessonesToday(msg: Message):
 async def gdz(msg: Message):
     if idKlass(msg.chat.id) == '9':
         r = await msg.answer('<b>Секунду...</b>')
-        dsadsd, orig = await recognize.recohniz(msg)
+        result = await recognize.recohniz(msg)
+        if result == -1:
+            await r.edit_text(text='Домашки не нашёл')
+            return
+        dsadsd, orig = result
         if dsadsd == -99 and orig == -91:
             await r.edit_text(text='ошибка, попробуй войти с помощью команды /editData или напиши Денису')
         else:
