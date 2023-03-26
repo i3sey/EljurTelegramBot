@@ -5,6 +5,7 @@ from bot.misc.util import dailyCleanup
 
 
 async def tommorow(msg):
+    urls = None
     time_zone = datetime.timezone(datetime.timedelta(hours=5))
     date = datetime.datetime.now(time_zone)
     if date.weekday() == 4:

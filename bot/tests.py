@@ -8,7 +8,7 @@ class TestFunctions(unittest.IsolatedAsyncioTestCase):
         class msg():
             class chat():
                 id = '882076783'
-        result = await tommorow.tommorow(msg)
+        result, urls = await tommorow.tommorow(msg)
         self.assertEqual(isinstance(result, str), True)
 
     async def test_tommorowHW(self):
