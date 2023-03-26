@@ -8,3 +8,6 @@ class UserInfo(StatesGroup):
     QL = State()
     QP = State()
     QD = State()
+    
+class FTA():
+    FTAfiles= []
