@@ -63,8 +63,13 @@ class Journal:
                     lessonMark = lesson.find("div", class_="dnevnik-mark")
                     if lessonMark:
                         lessonMark = lessonMark.contents[1].attrs["value"]
+                        
+                    lessonAttach = lesson.find("div", class_="dnevnik-lesson__attach")
+                    if lessonAttach:
+                        lessonAttach={lessonAttach.contents[1].attrs['title'] : lessonAttach.contents[1].attrs['href']}
+                    
 
-                    lessonsDict |= [(lessonNumber, {"time": lessonTime, "name": lessonName, "hometask": lessonHomeTask, "mark": lessonMark})]
+                    lessonsDict |= [(lessonNumber, {"time": lessonTime, "name": lessonName, "hometask": lessonHomeTask, "mark": lessonMark, "attach": lessonAttach})]
 
 
                 info.update([(week, {"date": date, "isEmpty": False, "comment": "Выходной", "lessons": lessonsDict})])

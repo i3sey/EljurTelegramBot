@@ -1,20 +1,23 @@
 import datetime
 from email.message import Message
+import os
 
 from aiogram import F, Router, types
 from aiogram.fsm.context import FSMContext
 from aiogram.utils.markdown import hide_link
 
-from bot.classes.classes import UserInfo, loginMsg
+from bot.classes.classes import UserInfo, loginMsg, FTA
 from bot.database import main
-from bot.database.main import BooksDB
+from bot.database.main import BooksDB, filesDB
 from bot.functions import (gdzAsking, hwSend, info, lessonsToday, recognize,
-                           shedule, tommorow, tommorowHw)
+                           shedule, tommorow, tommorowHw, files)
 from bot.functions.api import idKlass
 from bot.keyboards import reply
+from aiogram.types import FSInputFile
 
 router = Router()
 dbm = BooksDB()
+filesDB = filesDB()
 
 @router.message(commands=["editData"])
 async def editReg(msg: Message, state: FSMContext):
@@ -111,10 +114,31 @@ async def me(msg: Message):
 @router.message(F.text == "уроки сегодня")
 async def lessonesToday(msg: Message):
     r = await msg.answer('<b>Секунду...</b>')
-    text = await lessonsToday.todaylessons(msg)
-    await r.delete()
+    text, urls = lessonsToday.todaylessons(msg)
     await msg.answer(text, reply_markup=reply.start)
-
+    if urls:
+        g = await msg.answer('Найдены файлы, скачиваю')
+        send, firstSend = files.filesCheck(urls)
+        if send:
+            for file in send:
+                await msg.answer_document(file['file_id'])
+                FTA.FTAfiles.append(file)
+            await g.delete()
+        if firstSend:
+            for file in firstSend:
+                m = await msg.answer('Скачиваю этот файл в первый раз, пожалуйста ожидайте...')
+                f = await msg.answer_document(FSInputFile(file['name'], filename=file['name']))
+                file.update({'file_id': f.document.file_id})
+                filesDB.add(file['name'],
+                          file['file_id'],
+                          file['hash'],
+                          file['date'])
+                os.remove(file['name'])
+                await m.delete()
+            await g.delete()
+        # for g in t:
+        #     msg.answer_document(FSInputFile(t, filename=t))
+    await r.delete()
 
 @router.message(F.text == 'Гдз запрос ура')
 async def gdz(msg: Message):
@@ -128,3 +152,5 @@ async def gdz(msg: Message):
             await gdzAsking.asking(msg, dsadsd, orig)
     else:
         await msg.answer('Для твоего класса пока недоступно')
+        
+
