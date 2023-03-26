@@ -81,4 +81,39 @@ class BooksDB(object):
         posts = self.db.posts
         post = posts.find_one({'subject_name': subject_name})
         return post if post else -1
+    
+class filesDB(object):
+    client = MongoClient(token)
+    db = client.files
+    collection = db['files']
+    
+    def add(self, name, file_id, file_hash, date):
+        post = {'name' : name,
+                'file_id': file_id,
+                'hash' : file_hash,
+                'date': date}
+        posts = self.db.posts
+        posts_id = posts.insert_one(post).inserted_id
+    
+    def get(self, name):
+        posts = self.db.posts
+        post = posts.find_one({'name': name})
+        return post if post else -1
+    
+    def getID(self, id):
+        posts = self.db.posts
+        post = posts.find_one({'file_id': id})
+        return post if post else -1
+    
+    def delete(self, id):
+        posts = self.db.posts
+        post = posts.delete_one({'file_id': id})
+        return
+        
+    def all(self):
+        g = []
+        posts = self.db.posts
+        for post in posts.find():
+            g.append(post)
+        return g if post else -1
         
