@@ -19,6 +19,7 @@ async def update(message: Message) -> None:
     # Checking if message is coming from chat with specific chat ID.
     if message.chat.id == 882076783:
         # If yes then calling the `updateq()` and sending its output in HTML code format.
+        await message.answer('Updating...')
         await message.answer(f'<code>{updatee.updateq()}</code>' if updatee.updateq() else 'no')
 
 @router.message(commands=['add'])
