@@ -13,6 +13,8 @@ def todaylessons(msg):
     today = next((key for key, val in dictionary.items() if val['date'] == date_str), None)
     if today:    
         lessone, urls = dailyCleanup(dictionary[today]["lessons"])
+        if not lessone:
+            return f'Уроков нет', {}
         return f'Сегодня <b>{today}, {date_str}</b>\n{lessone}', urls
     else:
         return f'Уроков нет', {}
