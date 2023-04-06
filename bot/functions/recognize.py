@@ -42,7 +42,8 @@ def finder(hometask, splitBool):
     page = (
         'стр',
         'страница',
-        'с'
+        'с',
+        '§'
     )
     number = (
         'номер',
