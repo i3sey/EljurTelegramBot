@@ -42,8 +42,7 @@ def finder(hometask, splitBool):
     page = (
         'стр',
         'страница',
-        'с',
-        '§'
+        'с'
     )
     number = (
         'номер',
@@ -51,6 +50,13 @@ def finder(hometask, splitBool):
         'упражнение',
         '№'
     )
+    try:
+        if hometask == hometask.replace('§ ', 'стр '):
+            hometask = hometask.replace('§', 'стр ')
+        else:
+            hometask = hometask.replace('§ ', 'стр ')
+    except AttributeError:
+        pass
     if splitBool == True:
         f = re.sub(r'(?<=\d)(?!\d)|(?<!\d)(?=\d)', ' ', hometask)
         lst = f.replace('.', '').replace(',', ' ').split()
