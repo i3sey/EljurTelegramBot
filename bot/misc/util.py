@@ -57,6 +57,18 @@ def multiply(ist, Letter):
                 break
     return count
 
+def urlcheck(url, pg, nm):
+    if url == "https://reshak.ru/reshebniki/fizika/9/perishkin/images1/new/Upr/{int(nm)+4 if int(nm)>20 else nm}.png":
+        return eval(f"f'{url}'")
+    if '{pg}' in url and '{nm}' in url:
+        return url.format(pg=pg, nm=nm)
+    elif '{nm}' in url:
+        return url.format(nm=nm)
+    elif '{pg}' in url:
+        return url.format(pg=pg)
+    else:
+        return url.format(pg=pg, nm=nm)
+    
 def download(url, name):
     header = { 
         'authority': 'httpbin.org', 
