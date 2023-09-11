@@ -6,6 +6,8 @@ async def days_schedule():
         Returns:
             dict: schedule of currect day
         """
+
+        """
         date = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=5)))
         # class date:     debug
         #     hour = 22 
@@ -27,6 +29,16 @@ async def days_schedule():
             '7': '14:05–14:45',
             '8': '14:50–15:30'
         } if day in [1, 6, 7] else {
+            '1': '08:00–08:40',
+            '2': '08:50–09:30',
+            '3': '09:45–10:25',
+            '4': '10:45–11:25',
+            '5': '11:45–12:25',
+            '6': '12:35–13:15',
+            '7': '13:25–14:05',
+            '8': '14:15–14:55'
+        }"""
+        return {
             '1': '08:00–08:40',
             '2': '08:50–09:30',
             '3': '09:45–10:25',
